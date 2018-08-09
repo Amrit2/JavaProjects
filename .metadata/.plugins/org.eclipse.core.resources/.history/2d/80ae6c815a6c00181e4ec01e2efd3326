@@ -1,0 +1,21 @@
+package exercises;
+
+public class Cineam {
+	private Seat[][] seats;
+	
+	public Cineam(int nRows, int nCols) {
+		seats = new Seat[nRows][nCols];
+	}
+	
+	public void addSeat (Seat aSeat, int row, int col) {
+		for (int r = 0; r < seats.length; r++) {
+			if (r <= row) {
+				for (int c = 0; c < seats[r].length; c++) {
+					if (c <= col) {
+						seats[r][c] = aSeat;
+					}
+				}
+			}
+		}
+	}
+}

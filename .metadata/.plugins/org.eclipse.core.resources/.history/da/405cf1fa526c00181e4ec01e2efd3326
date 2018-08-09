@@ -1,0 +1,39 @@
+package exercises;
+
+public class DataMobilePackage extends StandardPackage{
+	private int heavyDataLimit;
+	private int lightDataLimit;
+
+	public DataMobilePackage(int textLimit, int talkLimit, int heavyData, int lightData) {
+		super(textLimit, talkLimit);
+		this.heavyDataLimit = heavyData;
+		this.lightDataLimit = lightData;
+	}
+
+	public int getHeavyDataLimit() {
+		return heavyDataLimit;
+	}
+
+	public void setHeavyDataLimit(int heavyDataLimit) {
+		this.heavyDataLimit = heavyDataLimit;
+	}
+
+	public int getLightDataLimit() {
+		return lightDataLimit;
+	}
+
+	public void setLightDataLimit(int lightDataLimit) {
+		this.lightDataLimit = lightDataLimit;
+	}
+	
+	public void transfer (int n) {
+		if (n > this.heavyDataLimit) {
+			System.out.println("Heavy Data limit reached");
+		}
+		else if (n > this.lightDataLimit) {
+			System.out.println("Light Data limit reached");
+		}
+	}
+	
+	
+}

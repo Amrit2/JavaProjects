@@ -1,0 +1,18 @@
+package exercises;
+
+public class DataHeavy extends DataMobilePackage{
+
+	public DataHeavy(int minLimit, int textLimit, int dataLimit) {
+		super(minLimit, textLimit,dataLimit);		
+	}
+
+	@Override
+	public double dataCost() {		
+		return this.dataUsed*0.25;
+	}
+
+	@Override
+	public double textCost(){
+		return 0.0;
+	}
+}

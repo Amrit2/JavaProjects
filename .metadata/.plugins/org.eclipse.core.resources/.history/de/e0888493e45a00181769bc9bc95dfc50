@@ -1,0 +1,252 @@
+package filmDatabaseApp;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+/**
+ *
+ *
+ *The Controller which mediates between the model and view.
+ *Contains all event handling code. 
+ *
+ *
+ */
+public class FilmListApp extends JFrame {
+
+
+	private FilmList model;
+	private FilmListPanel view;
+
+	//---------------------------------------------------------------------------------------------------------------------
+	private void eventHandleListSelection() 
+	{
+		//do not call update since that would re-initialise the list...
+		//instead, specifically update the view of the remove button
+		this.view.getRemoveButton().setEnabled(this.view.getFilmList().getSelectedIndex()!=-1);
+	}
+	//---------------------------------------------------------------------------------------------------------------------
+	private void eventHandleKeyReleased(KeyEvent e)
+	{
+		this.view.getAddButton().setEnabled(!this.view.getFilmNameTextField().getText().isEmpty());
+	}
+	
+	private void eventHandleFilterKeyReleased(KeyEvent e)
+	{
+		this.view.getSearchButton().setEnabled(!this.view.getFilmNameTextField().getText().isEmpty());
+	}
+	//---------------------------------------------------------------------------------------------------------------------
+	private void eventHandleRemoveButton()
+	{
+		int index = this.view.getFilmList().getSelectedIndex();
+		if(index!=-1)
+		{
+			this.model.removeFilmItem(index);				
+		}
+		this.view.update();
+	}
+	//---------------------------------------------------------------------------------------------------------------------
+	private void eventHandleWindowOpened()
+	{
+		System.out.println("Window opened!");
+		this.view.update();
+	}
+	//---------------------------------------------------------------------------------------------------------------------
+	private void eventHandleSaveButton()
+	{
+		//save the file to disk.
+		ReadFilmListDataFile.saveFilmList(this.model);
+		this.view.update();
+	}
+	//---------------------------------------------------------------------------------------------------------------------
+	private void eventHandleLoadButton()
+	{
+		//populate the model with fruits loaded from a file.
+		ReadFilmListDataFile.loadFilmList(this.model);
+		this.view.update();
+	}
+	//---------------------------------------------------------------------------------------------------------------------
+	private void eventHandleAddButton()
+	{
+		String text = this.view.getFilmNameTextField().getText().trim();
+		String rating = this.view.getFilmRatingTextField().getText().trim();
+		double ratingX = 0;
+
+		try 
+		{
+			ratingX = Double.parseDouble(rating);			
+		}
+		catch(NumberFormatException e)
+		{
+
+		}
+
+		Film f = new Film(text,ratingX);
+		if((!text.isEmpty())&&(!this.model.hasFilmListed(f)))
+		{
+			this.model.addFilm(f);;
+			this.view.getFilmNameTextField().setText("");
+			this.view.getFilmRatingTextField().setText("");
+		}
+		
+		this.view.update();
+	}
+
+	private void eventHandleSearchButton() {
+		//need to change the code 
+		String text = this.view.getFilmFilterName().getText().trim();
+		
+		try 
+		{
+			
+		}
+		catch(NumberFormatException e)
+		{
+
+		}
+
+		Film f = new Film(text);
+		if((!text.isEmpty())&&(this.model.hasFilmListed(f)))
+		{
+			Film[] filteredList = this.model.filterByName(this.model.getFilmList(), text);
+			for (Film film: filteredList) {
+				this.model.addFilm(film);
+			}
+//			ReadFilmListDataFile.filteredList(this.model);
+			this.view.getFilmFilterName().setText("");  
+		}
+		this.view.update();
+
+	}
+	//---------------------------------------------------------------------------------------------------------------------
+	/**
+	 * The constructor initializes the model and loads data from a text file database.
+	 * The view is constructed and added to the content pane.
+	 * All event handlers for the buttons,lists,fields etc are registered with the appropriate component. 
+	 * JFrame is fixed size and has no layout manager.
+	 * 
+	 * */
+	public FilmListApp(String name) {
+		super(name);
+
+		this.model =  new FilmList();
+		ReadFilmListDataFile.loadFilmList(this.model);
+
+		this.view = new FilmListPanel(this.model);
+
+
+		this.view.getLoadButton().addActionListener(
+				new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e) 
+					{
+						eventHandleLoadButton();		
+					}
+				}				
+				);
+
+
+		this.view.getSaveButton().addActionListener(
+				new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e) 
+					{
+						eventHandleSaveButton();		
+					}
+				}				
+				);
+
+
+		//set event listeners for the view here
+		this.view.getFilmNameTextField().addKeyListener(new KeyAdapter() 
+		{
+			public void keyReleased(KeyEvent e) 
+			{
+				eventHandleKeyReleased(e);
+			}
+		});
+
+		this.view.getFilmFilterName().addKeyListener(new KeyAdapter() 
+		{
+			public void keyReleased(KeyEvent e) 
+			{
+				eventHandleFilterKeyReleased(e);
+			}
+
+		});
+		
+		this.view.getRemoveButton().addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				eventHandleRemoveButton();		
+			}
+		});
+
+
+		this.view.getAddButton().addActionListener( new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				eventHandleAddButton();		
+			}
+		});
+
+		this.view.getSearchButton().addActionListener(new ActionListener() 
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				eventHandleSearchButton();
+			}
+
+		});
+
+		this.view.getFilmList().addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent e)
+			{
+				eventHandleListSelection();
+			}
+
+		});
+
+
+		this.addWindowListener(new WindowAdapter()
+		{
+			@Override
+			public void windowOpened(WindowEvent e) 
+			{
+				eventHandleWindowOpened();
+			}
+		});
+
+		// Choose to lay out components manually
+		this.getContentPane().setLayout(null);
+		//add the view to this content pane.
+		this.getContentPane().add(this.view);
+
+		// Set program to stop when window closed
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setSize(400, 400); // manually computed sizes
+		setResizable(false);
+	}
+	//---------------------------------------------------------------------------------------------------------------------
+	public static void main(String[] args) 
+	{
+		JFrame frame = new FilmListApp("My Film List");
+		frame.setVisible(true);
+	}
+}

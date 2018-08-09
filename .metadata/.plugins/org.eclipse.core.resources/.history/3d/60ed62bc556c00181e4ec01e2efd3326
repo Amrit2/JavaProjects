@@ -1,0 +1,12 @@
+package exercises;
+
+public class SparkPlugApp {
+
+	public static void main (String[] args) {
+		System.out.println("Please select a mobile phone package.");
+		
+		DataMobilePackage packages = new DataMobilePackage(0, 0 , 0);
+		
+		
+	}
+}

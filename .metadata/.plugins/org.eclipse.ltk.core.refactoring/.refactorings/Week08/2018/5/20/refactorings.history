@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;fruitList&apos; in &apos;exercises.Movie.Movie(...)&apos; to &apos;moviesList&apos;&#x0D;&#x0A;- Original project: &apos;Week08&apos;&#x0D;&#x0A;- Original element: &apos;exercises.Movie.Movie(String).fruitList&apos;&#x0D;&#x0A;- Renamed element: &apos;fruitList&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;fruitList&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;exercises{Movie.java[Movie~Movie~QString;@fruitList!451!486!457!465!QJList;!0!false" name="moviesList" references="true" stamp="1526192391445" version="1.0"/>
+</session>

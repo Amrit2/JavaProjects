@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="gameplay.World.PlayMode"/>
+<fullyQualifiedTypeName name="gameplay.Valuables"/>
+<fullyQualifiedTypeName name="gameplay.Pickup"/>
+<fullyQualifiedTypeName name="gameplay.Inventory"/>
+<fullyQualifiedTypeName name="gameplay.World.ExploreCommands"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="exercises.Seat.SeatType"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="java.util.InputMismatchException"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="java.util.Queue"/>
+<fullyQualifiedTypeName name="java.util.Stack"/>
+<fullyQualifiedTypeName name="java.lang.reflect.Array"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="java.util.PriorityQueue"/>
+</qualifiedTypeNameHistroy>

@@ -1,0 +1,174 @@
+package filmDatabaseApp;
+
+import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+/**
+ * The view of the app. Contains all JComponents to display the FruitList model.
+ * each button/field etc has a get method for access outside of the FruitListPanel class.
+ * 
+ * 
+ * */
+public class FilmListPanel extends JPanel {
+
+	private FilmList model;
+
+	private JList<Film> filmList;
+	private JTextField filmNameInput;
+	private JTextField filmRatingInput;
+	private JTextField filmFilterName;
+
+
+	private JButton addButton;
+	private JButton removeButton;
+	private JButton saveButton;
+	private JButton loadButton;
+	private JButton searchButton;
+	private JButton clearButton;
+	//---------------------------------------------------------------------------------------------------------------------
+	public JButton getSaveButton()
+	{
+		return this.saveButton;
+	}
+	//---------------------------------------------------------------------------------------------------------------------
+	public JButton getLoadButton()
+	{
+		return this.loadButton;
+	}
+	//---------------------------------------------------------------------------------------------------------------------
+	public JList<Film> getFilmList()
+	{
+		return this.filmList;
+	}
+	//---------------------------------------------------------------------------------------------------------------------
+	public JTextField getFilmRatingTextField()
+	{
+		return this.filmRatingInput;
+	}
+	//---------------------------------------------------------------------------------------------------------------------
+	public JTextField getFilmNameTextField()
+	{
+		return this.filmNameInput;
+	}
+	//---------------------------------------------------------------------------------------------------------------------
+	public JButton getRemoveButton()
+	{
+		return this.removeButton;
+	}
+	//---------------------------------------------------------------------------------------------------------------------
+	public JButton getAddButton()
+	{
+		return this.addButton;
+	}
+	//---------------------------------------------------------------------------------------------------------------------
+	public JTextField getFilmFilterName() {
+		return filmFilterName;
+	}
+
+	public JButton getSearchButton() {
+		return searchButton;
+	}
+
+	public JButton getClearButton() {
+		return clearButton;
+	}
+	
+	public FilmListPanel(FilmList model)
+	{
+		this.model = model;			//set the model.
+
+		setLayout(null);						//Choose to lay out components manually
+
+		this.filmList = new JList(this.model.getFilmList());  //CHANGE
+
+		this.filmList.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		JScrollPane scrollPane = new JScrollPane(filmList, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setLocation(20, 100);
+		scrollPane.setSize(450, 200);
+
+		this.add(scrollPane);
+
+		//add the fruit name input text field...
+		this.filmNameInput = new JTextField("Film Name");
+		this.filmNameInput.setLocation(220, 30);
+		this.filmNameInput.setSize(100, 25);
+		this.add(filmNameInput);
+
+		this.filmRatingInput = new JTextField("Rating");
+		this.filmRatingInput.setLocation(340, 30);
+		this.filmRatingInput.setSize(100, 25);
+		this.add(filmRatingInput);
+
+		// Add the ADD button
+		this.addButton = new JButton("Add Film");
+		addButton.setLocation(250, 65);
+		addButton.setSize(100, 25);
+		this.add(addButton);
+
+		
+		// Add the REMOVE button
+		removeButton = new JButton("Remove");
+		removeButton.setLocation(110, 320);
+		removeButton.setSize(100, 25);
+		this.add(removeButton);
+
+		
+		// Add the Save button
+		this.saveButton = new JButton("Save");
+		saveButton.setLocation(360, 65);
+		saveButton.setSize(100, 25);
+		this.add(saveButton);
+
+		
+		// Add the Load button
+		this.loadButton = new JButton("Load Films");
+		loadButton.setLocation(240, 320);
+		loadButton.setSize(100, 25);
+		this.add(loadButton);
+
+		
+		//filter via name search 
+		this.filmFilterName = new JTextField("Name Search");
+		this.filmFilterName.setLocation(20, 30);
+		this.filmFilterName.setSize(150, 25);
+		this.add(filmFilterName);
+
+		
+		// Add the Search button
+		this.searchButton = new JButton("Search");
+		searchButton.setLocation(20, 65);
+		searchButton.setSize(80, 25);
+		this.add(searchButton);
+		
+		// Add the clear button
+		this.clearButton = new JButton("Clear");
+		clearButton.setLocation(110, 65);
+		clearButton.setSize(70, 25);
+		this.add(clearButton);
+
+		setSize(500, 400); // manually computed sizes
+		this.update();
+	}
+	//---------------------------------------------------------------------------------------------------------------------
+	
+	/***
+	 * The update method is called by most event handler methods in the
+	 * FriutListApp.
+	 * 
+	 */ 
+	
+	public void update()
+	{
+		this.filmList.setListData(this.model.getFilmList());		
+		this.addButton.setEnabled(!this.filmNameInput.getText().isEmpty());
+		this.removeButton.setEnabled(this.filmList.getSelectedIndex()!=-1);
+		this.searchButton.setEnabled(true);
+	}
+	//---------------------------------------------------------------------------------------------------------------------
+}

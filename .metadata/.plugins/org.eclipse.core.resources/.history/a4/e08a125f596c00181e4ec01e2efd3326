@@ -1,0 +1,17 @@
+package exercises;
+
+public class Seat {
+	private boolean booked;
+	
+	public Seat (boolean state) {
+		setBooked(state);
+	}
+	
+	public void setBooked (boolean booked) {
+		this.booked = isBooked;
+	}
+	
+	public boolean isBooked() {
+		return this.booked;
+	}
+}

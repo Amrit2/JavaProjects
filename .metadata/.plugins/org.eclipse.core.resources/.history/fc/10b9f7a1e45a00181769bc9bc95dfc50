@@ -1,0 +1,72 @@
+package filmDatabaseApp;
+
+import java.util.ArrayList;
+/**
+ * This class maintains a list of Film objects with functionality
+ * to add and remove fruits from the list.
+ * 
+ * */
+
+public class FilmList {
+
+	private ArrayList<Film> filmItems;
+	//---------------------------------------------------------------------------------------------------------------------
+	public FilmList()
+	{
+		this.filmItems = new ArrayList<Film>();
+	}
+	
+	//---------------------------------------------------------------------------------------------------------------------
+	public void addFilm(Film aFilm)
+	{
+		this.filmItems.add(aFilm);
+	}
+	
+	//---------------------------------------------------------------------------------------------------------------------
+	public void removeFilmItem(int index)
+	{
+		this.filmItems.remove(index);
+	}
+	
+	//---------------------------------------------------------------------------------------------------------------------
+	public Film[] getFilmList() {
+		Film[] array = new Film[this.filmItems.size()];
+
+		for(int i=0;i<array.length;i++)
+		{
+			array[i] = this.filmItems.get(i);
+		}
+
+		return array;
+	}
+	
+	//-----------------------------------------------------------------------------------------------------
+//	public Film[] filterByName(Film[] films, String text) {
+//		Film[] filmList = new Film[this.filmItems.size()];
+//		for (int i = 0; i < films.length; i++) {
+//			if (films[i].toString().startsWith(text)) {
+//				filmList[i] = films[i];
+//			}
+//		}
+//		return filmList;
+//	}
+	//---------------------------------------------------------------------------------------------------------------------
+	public boolean hasFilmListed(Film aFilm) 
+	{
+		return this.filmItems.contains(aFilm);
+	}
+	//---------------------------------------------------------------------------------------------------------------------
+	public void clear() 
+	{
+		this.filmItems.clear();
+	}
+	//---------------------------------------------------------------------------------------------------------------------
+
+	public void filterFilm(String text) {
+		for (int i = 0; i < this.getFilmList().length; i++) {
+			if (this.getFilmList()[i].toString().startsWith(text)) {
+				this.filmItems.add(this.getFilmList()[i]);
+			}
+		}
+	}
+}

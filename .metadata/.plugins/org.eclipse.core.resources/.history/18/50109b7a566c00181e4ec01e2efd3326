@@ -1,0 +1,19 @@
+package exercises;
+
+public class SparkPlugApp {
+
+	public static void main (String[] args) {
+		StandardPackage packages = new StandardPackage(10, 100);
+		DataLite dLite = new DataLite(20, 56, 1024);
+		DataHeavy dHeavy = new DataHeavy(30, 156, 5120);
+
+		System.out.println("Please select a mobile phone package. \n" + 
+							"0: " + packages.toString() + "\n"+
+							"1: " + dLite.toString() + "\n" +
+							"2: " + dHeavy.toString()+ "\n"+
+							"3: stop.");
+		
+				
+		
+	}
+}
